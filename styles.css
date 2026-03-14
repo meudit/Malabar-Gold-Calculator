@@ -1,5 +1,3 @@
-@import url('https://fonts.cdnfonts.com/css/archia');
-
 /* ===== CSS Variables & Design System ===== */
 :root {
   /* Colors */
@@ -28,8 +26,8 @@
   --radius-xl: 0.625rem;
 
   /* Typography */
-  --font-body: 'Archia', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-heading: 'Archia', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Google Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
+  --font-heading: 'Google Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, sans-serif;
 
   /* Transitions */
   --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -264,6 +262,10 @@ input[type=number] {
   font-size: 0.875rem;
   font-weight: 700;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
   transition: all var(--transition);
 }
 
@@ -278,6 +280,18 @@ input[type=number] {
 
 .mt-3 {
   margin-top: var(--space-lg);
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+@media (max-width: 600px) {
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .btn-icon {
@@ -304,11 +318,28 @@ input[type=number] {
 /* ===== Results Tables ===== */
 .table-container {
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+}
+
+thead th {
+  padding: var(--space-sm) var(--space-xs);
+  text-align: right;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border-color);
+}
+
+thead th:first-child {
+  text-align: left;
 }
 
 .result-heading {
@@ -321,19 +352,26 @@ table {
 }
 
 td {
-  padding: var(--space-sm) 0;
+  padding: var(--space-sm) var(--space-xs);
   border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
 }
 
-td:first-child {
-  width: 50%;
+/* Only apply 50% width rules to the 2-col summary tables */
+#results_table td:first-child,
+#no_discount_table td:first-child,
+#invoice_summary_table td:first-child {
+  width: 60%;
   font-size: 0.875rem;
   color: var(--text-secondary);
-  padding-right: var(--space-xs);
+  padding-right: var(--space-sm);
+  white-space: normal;
 }
 
-td.value {
-  width: 50%;
+#results_table td.value,
+#no_discount_table td.value,
+#invoice_summary_table td.value {
+  width: 40%;
   text-align: right;
   font-size: 1.125rem;
   font-weight: 700;
@@ -342,7 +380,48 @@ td.value {
   white-space: nowrap;
 }
 
-tr:last-child td {
+/* Invoice table specific cell styles */
+#invoice_table td {
+  text-align: right;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+#invoice_table td:first-child {
+  text-align: left;
+  width: auto;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  padding-right: var(--space-md);
+}
+
+#invoice_table td.value {
+  width: auto;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Zebra striping on invoice tbody rows */
+#invoice_table tbody tr:nth-child(even) {
+  background: var(--bg-secondary);
+}
+
+/* tfoot styling */
+#invoice_table tfoot td {
+  border-top: 2px solid var(--border-color);
+  border-bottom: none;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding-top: var(--space-md);
+}
+
+#invoice_table tfoot tr:last-child td {
+  border-top: none;
+}
+
+/* Remove bottom border from last non-footer row in all tables */
+tbody tr:last-child td {
   border-bottom: none;
 }
 
@@ -380,6 +459,60 @@ tr:last-child td {
    color: #EF4444 !important;
 }
 
+/* ===== Invoice Specific Styles ===== */
+.invoice-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.invoice-item {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.invoice-item-header {
+  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  margin-bottom: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px dashed var(--border-color);
+  color: var(--text-primary);
+}
+
+.invoice-item-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-xs);
+  font-size: 0.875rem;
+}
+
+.invoice-item-row .label {
+  color: var(--text-secondary);
+}
+
+.invoice-item-row .val {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.invoice-item-row.heavy {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--border-color);
+}
+
+.invoice-item-row.heavy .label,
+.invoice-item-row.heavy .val {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 @media (max-width: 500px) {
   .item-row {
       grid-template-columns: 1fr 1fr;
@@ -387,5 +520,22 @@ tr:last-child td {
   .btn-icon {
       grid-column: span 2;
       width: 100%;
+  }
+
+  /* Make summary table labels wrap instead of overflow */
+  #results_table td:first-child,
+  #no_discount_table td:first-child {
+    white-space: normal;
+    font-size: 0.8rem;
+  }
+
+  thead th {
+    font-size: 0.65rem;
+    padding: var(--space-xs);
+  }
+
+  #invoice_table td {
+    font-size: 0.8rem;
+    padding: var(--space-xs);
   }
 }

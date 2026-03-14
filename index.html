@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gold Investment Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <header>
             <button class="theme-toggle-btn" id="theme_toggle_btn" aria-label="Toggle Theme">
-                <span id="theme_icon">☀️</span>
+                <span id="theme_icon" style="display: flex; align-items: center; justify-content: center;"></span>
             </button>
             <h1>Gold Calculator</h1>
             <p>Calculate your investments, deductions, and items easily.</p>
@@ -42,14 +45,14 @@
             <section class="card items-section">
                 <div class="items-header">
                     <h2>Items</h2>
-                    <button class="btn btn-secondary" id="add_item_btn">+ Add Item</button>
+                    <button class="btn btn-secondary" id="add_item_btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg> Add Item</button>
                 </div>
                 <div id="items_container">
                     <!-- Dynamic item rows will be generated here -->
                 </div>
             </section>
 
-            <button class="btn-cta" id="calculate_btn">Calculate Results</button>
+            <button class="btn-cta" id="calculate_btn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg> Calculate Results</button>
 
             <section class="card results-section" id="results_section" style="display: none;">
                 <h2>Calculation Summary</h2>
@@ -88,8 +91,9 @@
                     </table>
                 </div>
 
-                <div class="mt-3">
-                    <button class="btn btn-secondary w-full" id="view_more_btn">View More Info (No Discount scenario)</button>
+                <div class="action-grid mt-3">
+                    <button class="btn btn-secondary w-full" id="view_more_btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg> View More Info (No Discount scenario)</button>
+                    <button class="btn btn-secondary w-full" id="view_invoice_btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> View Invoice</button>
                 </div>
             </section>
 
@@ -123,6 +127,40 @@
                                 <td id="nd_savings" class="value highlight-value">0.00</td>
                             </tr>
                         </tbody>
+                    </table>
+                </div>
+            </section>
+            <section class="card results-section" id="invoice_section" style="display: none;">
+                <h2>Itemized Invoice</h2>
+                <div class="table-container">
+                    <table id="invoice_table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Gold (g)</th>
+                                <th>Avg. Price</th>
+                                <th>Subtotal</th>
+                                <th>Applied VA</th>
+                                <th>Grand Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoice_tbody">
+                            <!-- Dynamic rows populated by JS -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5"><strong>Net Total</strong></td>
+                                <td id="inv_net_total" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="5">Tax (3%)</td>
+                                <td id="inv_tax" class="value">0.00</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td colspan="5"><strong>Final Price</strong></td>
+                                <td id="inv_final_price" class="value highlight-value">0.00</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </section>

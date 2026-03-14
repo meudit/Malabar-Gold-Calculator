@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Investment Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="theme-toggle-btn" id="theme_toggle_btn" aria-label="Toggle Theme">
+                <span id="theme_icon">☀️</span>
+            </button>
+            <h1>Gold Calculator</h1>
+            <p>Calculate your investments, deductions, and items easily.</p>
+        </header>
+        
+        <main>
+            <section class="card inputs-section">
+                <h2>Global Inputs</h2>
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="tot_investment">Total Investment</label>
+                        <input type="number" id="tot_investment" step="0.01" placeholder="Enter investment">
+                    </div>
+                    <div class="input-group">
+                        <label for="gold_accumulated">Total Gold Accumulated</label>
+                        <input type="number" id="gold_accumulated" step="0.01" placeholder="Enter gold accumulated">
+                    </div>
+                    <div class="input-group">
+                        <label for="gold_price">Today's Gold Price</label>
+                        <input type="number" id="gold_price" step="0.01" placeholder="Enter today's price">
+                    </div>
+                    <div class="input-group">
+                        <label for="dis">Discount (%)</label>
+                        <input type="number" id="dis" step="0.01" placeholder="e.g. 5">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card items-section">
+                <div class="items-header">
+                    <h2>Items</h2>
+                    <button class="btn btn-secondary" id="add_item_btn">+ Add Item</button>
+                </div>
+                <div id="items_container">
+                    <!-- Dynamic item rows will be generated here -->
+                </div>
+            </section>
+
+            <button class="btn-cta" id="calculate_btn">Calculate Results</button>
+
+            <section class="card results-section" id="results_section" style="display: none;">
+                <h2>Calculation Summary</h2>
+                <div class="table-container">
+                    <table id="results_table">
+                        <tbody>
+                            <tr>
+                                <td>Average Price (Calculated)</td>
+                                <td id="res_avg_price" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total Gold Rate</td>
+                                <td id="res_tot_gold_rate" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total VA (INR)</td>
+                                <td id="res_tot_va" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total Invoice (Excl. Tax)</td>
+                                <td id="res_tot_invoice" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total with Tax (3%)</td>
+                                <td id="res_with_tax" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total Adjustments (Investments + Discounts)</td>
+                                <td id="res_adjust" class="value">0.00</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>Total Payable</strong></td>
+                                <td id="res_tot_amt" class="value highlight-value">0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-secondary w-full" id="view_more_btn">View More Info (No Discount scenario)</button>
+                </div>
+            </section>
+
+            <section class="card results-section" id="no_discount_section" style="display: none;">
+                <h2>If Bought At Today's Price (No Discount)</h2>
+                <div class="table-container">
+                    <table id="no_discount_table">
+                        <tbody>
+                            <tr>
+                                <td>Total Gold Value</td>
+                                <td id="nd_gold_value" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total VA (INR)</td>
+                                <td id="nd_va" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal (Excl. Tax)</td>
+                                <td id="nd_subtotal" class="value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Total Tax (3%)</td>
+                                <td id="nd_tax" class="value">0.00</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>Total Payable (No Discount)</strong></td>
+                                <td id="nd_total" class="value highlight-value danger-value">0.00</td>
+                            </tr>
+                            <tr>
+                                <td><strong>You Saved</strong></td>
+                                <td id="nd_savings" class="value highlight-value">0.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

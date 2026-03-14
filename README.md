@@ -9,7 +9,7 @@ The application features a sleek dark-and-light theme switch and mobile-responsi
 - **Dynamic Item Entry:** Add multiple gold items and automatically view the accumulated weight.
 - **Proportional Discount Logic:** Built-in calculation matching your specific parameters for base gold price vs discounted weights.
 - **"No Discount" Comparison View:** A toggleable info breakdown comparing your final paid amount out-the-door vs what the total value would be if bought without accumulated or proportional discounts.
-- **Modern Theme:** Clean, flat glass-free minimalist design utilizing `Space Grotesk` and `Outfit` modern typography standards, complete with local-storage-backed Light/Dark modes.
+- **Modern Theme:** Clean, flat, and angular minimalist design utilizing the `Archia` font family to match a unified aesthetic, complete with local-storage-backed Light/Dark modes.
 - **Mobile Responsive Layout:** Tables explicitly styled to never scroll horizontally off-screen, maintaining clean presentation on any device.
 
 ## Usage
